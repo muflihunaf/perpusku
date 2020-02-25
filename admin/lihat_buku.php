@@ -16,6 +16,7 @@
             <th>Tahun</th>
             <th>ISBN</th>
             <th>Jumlah</th>
+            <th colspan="2">Option</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,8 @@
                 <td><?= $data->tahun ?></td>
                 <td><?= $data->isbn ?></td>
                 <td><?= $data->jumlah ?></td>
+                <td><a href="edit_buku.php?id_buku=<?=$data->id_buku ?>">Edit</a> </td>
+                <td><a href="hapus_buku.php?id_buku=<?=$data->id_buku ?>">Hapus</a> </td>
 
         </tr>
                 <?php } ?>
