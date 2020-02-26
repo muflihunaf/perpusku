@@ -29,6 +29,10 @@
                 <td><input type="number" name="isbn" id=""></td>
             </tr>
             <tr>
+                <td><label>Lokasi</label></td>
+                <td><input type="text" name="lokasi" id=""></td>
+            </tr>
+            <tr>
                 <td><label>Jumlah</label></td>
                 <td><input type="number" name="jumlah"></td>
             </tr>
@@ -46,8 +50,9 @@
             $penerbit = $_POST['penerbit'];
             $tahun = $_POST['tahun'];
             $isbn = $_POST['isbn'];
+            $lokasi = $_POST['lokasi'];
             $jumlah = $_POST['jumlah'];
-            if(simpan_buku($judul,$pengarang,$penerbit,$tahun,$isbn,$jumlah)){
+            if(simpan_buku($judul,$pengarang,$penerbit,$tahun,$isbn,$lokasi,$jumlah)){
                 header('location:lihat_buku.php');
             }
         }
