@@ -15,6 +15,7 @@
             <th>Penerbit</th>
             <th>Tahun</th>
             <th>ISBN</th>
+            <th>Lokasi</th>
             <th>Jumlah</th>
             <th colspan="2">Option</th>
         </tr>
@@ -30,8 +31,9 @@
                 <td><?= $data->penerbit ?></td>
                 <td><?= $data->tahun ?></td>
                 <td><?= $data->isbn ?></td>
+                <td><?= $data->lokasi ?></td>
                 <td><?= $data->jumlah ?></td>
-
+                <td><a href="pinjam_buku.php?id_buku=<?= $data->id_buku ?>">Pinjam</a></td>
         </tr>
                 <?php } ?>
     </tbody>

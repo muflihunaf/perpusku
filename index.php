@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    require 'db/db.php';
+    session_start();
+?>
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -52,8 +55,13 @@
           <li><a href="#contact">Contact Us</a></li>
           <li class="drop-down"><a href="">User</a>
             <ul>
+              <?php
+                if (empty($_SESSION['username'])) { ?>
               <li><a href="#">Login</a></li>
               <li><a href="#">Register</a></li>
+                <?php } else{ ?>
+              <li> <a href=""><?= $_SESSION['username']; ?> </a></li>
+                <?php } ?>
             </ul>
           </li>
         </ul>
