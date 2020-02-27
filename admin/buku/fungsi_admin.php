@@ -91,3 +91,37 @@ function daftar_anggota($nim,$nama,$jk,$tl,$tgl,$prodi,$status){
 		return false;
 	}
 }
+
+function pinjam_buku($id_buku,$jumlah){
+	global $koneksi;
+	$id_buku = mysqli_real_escape_string($koneksi, $id_buku);
+	$jumlah= mysqli_real_escape_string($koneksi, $jumlah);
+	$cek = mysqli_query($koneksi,"SELECT * FROM tbl_buku WHERE id_buku = '$id_buku'");
+	$data = mysqli_fetch_object($cek);
+
+	if($data->jumlah > $jumlah){
+		$query = "UPDATE tbl_buku SET jumlah = jumlah - $jumlah WHERE id_buku = '$id_buku'";
+		if(mysqli_query($koneksi, $query)){
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+
+}
+function pinjam($id_buku,$tglsekarang,$tglkembali,$jumlah,$id_anggota){
+	global $koneksi;
+	$id_buku = mysqli_real_escape_string($koneksi, $id_buku);
+	$id_anggota = mysqli_real_escape_string($koneksi,$id_anggota);
+    $tglsekarang = mysqli_real_escape_string($koneksi,$tglsekarang);
+	$tglkembali = mysqli_real_escape_string($koneksi,$tglkembali);
+	$jumlah = mysqli_real_escape_string($koneksi,$jumlah);
+	$query = "INSERT INTO tbl_peminjaman (id_buku,tgl_peminjaman,tgl_pengembalian,jumlah,id_user) VALUES ('$id_buku','$tglsekarang','$tglkembali','$jumlah','$id_anggota') ";
+	if(mysqli_query($koneksi, $query)){
+		return true;
+	} else {
+		return false;
+	}
+}

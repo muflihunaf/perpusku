@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Buku</title>
+    <title>Pinjam Buku </title>
 </head>
 
 <body>
@@ -50,11 +50,15 @@
             </tr>
             <tr>
                 <td>Tanggal</td>
-                <td><input type="date" id="datenow" value=""></td>
+                <td><input type="date" id="datenow" name="tglsekarang" value=""></td>
             </tr>
             <tr>
                 <td>Tanggal Kembali</td>
-                <td><input type="date" id="kembali" value=""></td>
+                <td><input type="date" id="kembali" name="tglkembali"></td>
+            </tr>
+            <tr>
+                <td>Jumlah</td>
+                <td><input type="number" id="kembali" name="jumlah"></td>
             </tr>
             <input type="hidden" id="id_anggota" name="id_anggota">
             <tr>
@@ -97,6 +101,20 @@
 </script>
 <?php
     if (isset($_POST['submit'])) {
+        $id_anggota = $_POST['id_anggota'];
+        $id_buku = $id;
+        $tglsekarang = $_POST['tglsekarang'];
+        $tglkembali = $_POST['tglkembali'];
+        $jumlah = $_POST['jumlah'];
+        if(pinjam_buku($id_buku,$jumlah)){
+            if(pinjam($id_buku,$tglsekarang,$tglkembali,$jumlah,$id_anggota)){
+                echo "Berhasil";
+            }else{
+                echo "Berhasil";
+            }
+        }else{
+            echo "Buku Tidak Ada";
+        }
 
     }
 ?>
