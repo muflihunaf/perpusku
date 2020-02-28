@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Anggota</title>
+    <?php
+        session_start();
+        if (empty($_SESSION['username'])){
+            ?>
+            <script> alert("Anda Harus Login Terlebih Dahulu") </script>
+            <script> window.location="../../user/login.php" </script>
+            <?php
+        }else{?>
 </head>
 <body>
 
@@ -41,4 +49,5 @@
     </table>
 
 </body>
+                <?php } ?>
 </html>

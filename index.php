@@ -57,10 +57,23 @@
             <ul>
               <?php
                 if (empty($_SESSION['username'])) { ?>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Register</a></li>
+              <li><a href="user/login.php">Login</a></li>
                 <?php } else{ ?>
               <li> <a href=""><?= $_SESSION['username']; ?> </a></li>
+              <?php
+                  $query = mysqli_query($koneksi, "SELECT * FROM tbl_user WHERE username = $_SESSION[username] ");
+                  $cek = mysqli_fetch_object($query);
+                  if($cek->level == 1){?>
+                  <li> <a href="admin/index.php">Dashboard</a></li>
+                  <li> <a href="admin/anggota/lihat_anggota.php">Lihat Anggota</a></li>
+                  <li> <a href="admin/anggota/tambah_anggota.php">Tambah Anggota</a></li>
+                  <li> <a href="admin/buku/lihat_buku.php">Lihat Buku</a></li>
+                  <li> <a href="admin/buku/lihat_buku.php">Tambah Buku</a></li>
+                  <?php }else{ ?>
+                    <li> <a href="">Lihat Buku</a></li>
+              <?php }
+              ?>
+              <li> <a href="user/logout.php">Logout</a></li>
                 <?php } ?>
             </ul>
           </li>

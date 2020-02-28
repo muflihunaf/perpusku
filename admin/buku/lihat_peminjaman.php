@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Peminjaman</title>
+    <?php
+        session_start();
+        if (empty($_SESSION['username'])){
+            ?>
+            <script> alert("Anda Harus Login Terlebih Dahulu") </script>
+            <script> window.location="../../user/login.php" </script>
+            <?php
+        }else{?>
 </head>
 <body>
 
@@ -28,6 +36,7 @@
                 $query = mysqli_query($koneksi, "SELECT * FROM tbl_buku INNER JOIN tbl_peminjaman ON tbl_buku.id_buku = tbl_peminjaman.id_buku INNER JOIN tbl_anggota ON tbl_anggota.id_anggota = tbl_peminjaman.id_user ");
                 while ($data = mysqli_fetch_object($query)) {?>
         <tr>
+
                 <td><?= $data->judul ?></td>
                 <td><?= $data->isbn ?></td>
                 <td><?= $data->penerbit ?></td>
@@ -47,4 +56,5 @@
     </table>
 
 </body>
+                <?php }?>
 </html>

@@ -3,6 +3,14 @@
 <head>
 	<title>Tambah Anggota</title>
 	<link rel="stylesheet" href="view/main.css"/>
+	<?php
+        session_start();
+        if (empty($_SESSION['username'])){
+            ?>
+            <script> alert("Anda Harus Login Terlebih Dahulu") </script>
+            <script> window.location="../../user/login.php" </script>
+            <?php
+        }else{?>
 </head>
 <body>
 <ul>
@@ -70,7 +78,7 @@ if(isset($_POST['submit'])){
 	</table>
 </form>
 <?php
-}
+}}
 ?>
 </body>
 </html>

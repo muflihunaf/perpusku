@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lihat Buku</title>
+    <?php
+        session_start();
+        if (empty($_SESSION['username'])){
+            ?>
+            <script> alert("Anda Harus Login Terlebih Dahulu") </script>
+            <script> window.location="../../user/login.php" </script>
+            <?php
+        }else{?>
 </head>
 <body>
 
@@ -17,7 +25,7 @@
             <th>ISBN</th>
             <th>Lokasi</th>
             <th>Jumlah</th>
-            <th colspan="2">Option</th>
+            <th colspan="3">Option</th>
         </tr>
     </thead>
     <tbody>
@@ -33,8 +41,10 @@
                 <td><?= $data->isbn ?></td>
                 <td><?= $data->lokasi ?></td>
                 <td><?= $data->jumlah ?></td>
+                <td><a href="pinjam_buku.php?id_buku=<?=$data->id_buku ?>">Pinjam</a> </td>
                 <td><a href="edit_buku.php?id_buku=<?=$data->id_buku ?>">Edit</a> </td>
                 <td><a href="hapus_buku.php?id_buku=<?=$data->id_buku ?>">Hapus</a> </td>
+
 
         </tr>
                 <?php } ?>
@@ -43,4 +53,5 @@
     </table>
 
 </body>
+                <?php }?>
 </html>

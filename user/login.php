@@ -1,7 +1,9 @@
 <?php
 session_start();
-if(isset($_SESSION['login-adm'])){
-	header("Location: index.php");
+if(isset($_SESSION['username'])){
+	?>
+	<script> window.location = "../index.php" </script>
+	<?php
 } else {
 	require_once "../db/db.php";
 	require_once "core/fungsi_user.php";
@@ -13,52 +15,24 @@ if(isset($_SESSION['login-adm'])){
 <html>
 <head>
 	<title>Administrator</title>
-	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
-	<style type="text/css">
-		body, html {
-			height: 100%;
-		}
-		body {
-			background-color: #0090bd;
-		}
-		#formulir {
-			max-width: 350px;
-			margin: 5% auto 25px;
-			background-color: #FAFAFA;
-			padding: 40px;
-			border-radius: 10px 10px 2px 2px;
-		}
-		.img {
-			margin: 5px auto 20px;
-		}
-		img {
-			max-width: 150px;
-			max-height: 150px;
-		}
-		.form-control,
-		label {
-			margin-bottom: 10px;
-			width: 100%;
-		}
-		.warning {
-			margin-top: 10px;
-			padding: 10px;
-			color: #FF2800;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../assets/tampilan/css/style.css"/>
 
-	<script type="text/javascript" src="../bootstrap/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
 </head>
 <body>
 
 <div class="container">
-	<div id="formulir">
-		<div class="img text-center">
-			<img src="https://cdn3.iconfinder.com/data/icons/glypho-computers-andother-tech/64/user-spy-thief-glasses-hat-512.png" class="img-circle"/>
-		</div>
+	<div class="box">
 		<form action="login.php" method="POST">
-			<input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
-			<input type="password" class="form-control" placeholder="Password" name="pass" required>
+		<div class="input-box">
+				<input type="text" name="username" required>
+				<label>Username</label>
+			</div>
+			<div class="input-box">
+				<input type="password" name="pass" required>
+				<label>Password</label>
+			</div>
 			<input type="submit" class="btn btn-lg btn-primary btn-block" name="login-adm" value="LOGIN">
 		</form>
 		<div class="warning">
