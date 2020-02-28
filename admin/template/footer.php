@@ -87,84 +87,46 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
                 </ol>
-                <?php
-require_once "../core/init.php";
+                <a type="button" class="btn btn-primary"  href="tambah_anggota.php"> Tambah Anggota </a>
+                <table border="1px solid" class="table table-bordered" id="anggota">
+                    <thead>
+                        <tr>
+                            <<th>Judul</th>
+            <th>Pengarang</th>
+            <th>Penerbit</th>
+            <th>Tahun</th>
+            <th>ISBN</th>
+            <th>Lokasi</th>
+            <th>Jumlah</th>
+            <th>Option</th>
 
-if(isset($_POST['submit'])){
-	$nim 	= $_POST['nim'];
-	$nama 	= $_POST['nama'];
-	$jk 	= $_POST['jenis_kelamin'];
-	$tl 	= $_POST['tempat_lahir'];
-	$tgl = $_POST['tanggal_lahir'];
-	$prodi 	= $_POST['prodi'];
-	$status = 0;
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                $query = mysqli_query($koneksi, "SELECT * FROM tbl_buku");
+                while ($data = mysqli_fetch_object($query)) {?>
+        <tr>
+                <td><?= $data->judul ?></td>
+                <td><?= $data->pengarang ?></td>
+                <td><?= $data->penerbit ?></td>
+                <td><?= $data->tahun ?></td>
+                <td><?= $data->isbn ?></td>
+                <td><?= $data->lokasi ?></td>
+                <td><?= $data->jumlah ?></td>
+                <td><a href="pinjam_buku.php?id_buku=<?=$data->id_buku ?>">Pinjam</a>
+                <a href="edit_buku.php?id_buku=<?=$data->id_buku ?>">Edit</a>
+                <a href="hapus_buku.php?id_buku=<?=$data->id_buku ?>">Hapus</a> </td>
 
-	if(anggota_kembar($nim)){
-		if(daftar_anggota($nim,$nama,$jk,$tl,$tgl,$prodi,$status)){
-			echo "Berhasil daftar";
-		} else {
-			echo "Gagal daftar";
-		}
-	} else {
-		echo "Gagal daftar, NIM sudah terdaftar";
-	}
 
-} else {
-?>
+        </tr>
+                <?php } ?>
+    </tbody>
 
-                <div class="grid-form">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="horizontal-form">
-                            <form action="" method="POST" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">NIM</label>
-                                    <div class="col-md-10">
-                                        <input type="text" name="nim" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="" class="control-label col-sm-2">Nama</label>
-                                <div class="col-md-10">
-                                <input type="text" name="nama" class="form-control">
-                                </div>
-                                </div>
-                                <div class="form-group">
-                                <label class="control-label col-sm-2">Jenis Kelamin</label>
-                                <div class="col-md-10">
-                                <input type="text" name="jenis_kelamin" class="form-control">
-                                </div>
-                                </div>
+    </table>
 
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tempat Lahir</label>
-                                    <div class="col-sm-10">
-                                    <input type="text" name="tempat_lahir" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label class="control-label col-sm-2">Tanggal Lahir</label>
-                                <div class="col-sm-10">
-                                    <input type="date" name="tanggal_lahir" class="form-control">
-                                </div>
-                                </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">Program Studi</label>
-                                        <div class="col-sm-10">
-                                        <input type="text" name="prodi" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" name="submit" value="Simpan" class="col-md-2 col-md-offset-10 bg-primary btn btn-primary">
-                                    </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <?php
-
-}}
-?>
+</body>
+                <?php }?>
 
                 <script>
                     $(document).ready(function () {
@@ -201,13 +163,12 @@ if(isset($_POST['submit'])){
                                 class="fa fa-users nav_icon"></i><span>Anggota</span>
                             <div class="clearfix"></div>
                         </a></li>
-                    <li><a href="../buku/lihat_buku.php"><i class="fa fa-book" aria-hidden="true"></i><span>Lihat
+                    <li><a href="buku/lihat_buku.php"><i class="fa fa-book" aria-hidden="true"></i><span>Lihat
                                 Buku</span>
                             <div class="clearfix"></div>
                         </a></li>
-                    <li id="menu-academico"><a href="../buku/lihat_peminjaman.php"><i
-                                class="fa fa-exchange"></i><span>Lihat
-                                Peminjaman</span>
+                    <li id="menu-academico"><a href="buku/lihat_peminjaman.php"><i
+                                class="fa fa-exchange"></i><span>Lihat Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
                 </ul>
@@ -216,43 +177,42 @@ if(isset($_POST['submit'])){
         <div class="clearfix"></div>
 
 
-        <script>
-            var toggle = true;
+    <script>
+        var toggle = true;
 
-            $(".sidebar-icon").click(function () {
-                if (toggle) {
-                    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+        $(".sidebar-icon").click(function () {
+            if (toggle) {
+                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                $("#menu span").css({
+                    "position": "absolute"
+                });
+            } else {
+                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                setTimeout(function () {
                     $("#menu span").css({
-                        "position": "absolute"
+                        "position": "relative"
                     });
-                } else {
-                    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-                    setTimeout(function () {
-                        $("#menu span").css({
-                            "position": "relative"
-                        });
-                    }, 400);
-                }
+                }, 400);
+            }
 
-                toggle = !toggle;
-            });
-        </script>
-        <!--js -->
-        <script src="../../assets/web/js/jquery.nicescroll.js"></script>
-        <script src="../../assets/web/js/scripts.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../../assets/web/js/bootstrap.min.js"></script>
-        <!-- /Bootstrap Core JavaScript -->
-        <!-- morris JavaScript -->
-        <script src="../../assets/web/js/raphael-min.js"></script>
-        <script src="../../assets/web/js/morris.js"></script>
+            toggle = !toggle;
+        });
+    </script>
+    <!--js -->
+    <script src="../../assets/web/js/jquery.nicescroll.js"></script>
+    <script src="../../assets/web/js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../assets/web/js/bootstrap.min.js"></script>
+    <!-- /Bootstrap Core JavaScript -->
+    <!-- morris JavaScript -->
+    <script src="../../assets/web/js/raphael-min.js"></script>
+    <script src="../../assets/web/js/morris.js"></script>
 
-        <div class="clearfix"> </div><br><br><br><br><br><br><br>
-        <footer class="copyrights">
-            <p>© 2016 Pooled. All Rights Reserved | Design by <a href="http://w3layouts.com/"
-                    target="_blank">W3layouts</a>
-            </p>
-        </footer>
+    <div class="clearfix"> </div><br><br><br><br><br><br><br>
+    <footer class="copyrights">
+        <p>© 2016 Pooled. All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a>
+        </p>
+    </footer>
     </div>
 </body>
 <script src="../../assets/js/jquery.dataTables.min.js"></script>
