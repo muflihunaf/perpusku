@@ -102,34 +102,34 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="" class="control-label col-sm-2">Nama</label>
+                                <label for="" class="control-label col-sm-2">Pengarang</label>
                                 <div class="col-md-10">
-                                <input type="text" name="nama" class="form-control">
+                                <input type="text" class="form-control" name="pengarang" value="<?= $data->pengarang; ?>">
                                 </div>
                                 </div>
                                 <div class="form-group">
-                                <label class="control-label col-sm-2">Jenis Kelamin</label>
+                                <label class="control-label col-sm-2">Penerbit</label>
                                 <div class="col-md-10">
-                                <input type="text" name="jenis_kelamin" class="form-control">
+                                    <input type="text" class="form-control" name="penerbit" value="<?= $data->penerbit; ?>">
                                 </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Tempat Lahir</label>
+                                    <label class="control-label col-sm-2">Tahun Terbit</label>
                                     <div class="col-sm-10">
-                                    <input type="text" name="tempat_lahir" class="form-control">
+                                    <input class="form-control" type="number" name="tahun" value="<?= $data->tahun; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label class="control-label col-sm-2">Tanggal Lahir</label>
+                                <label class="control-label col-sm-2">ISBN</label>
                                 <div class="col-sm-10">
-                                    <input type="date" name="tanggal_lahir" class="form-control">
+                                    <input type="number" name="isbn" value="<?= $data->isbn; ?>" class="form-control">
                                 </div>
                                 </div>
                                     <div class="form-group">
-                                        <label class="control-label col-sm-2">Program Studi</label>
+                                        <label class="control-label col-sm-2">Jumlah</label>
                                         <div class="col-sm-10">
-                                        <input type="text" name="prodi" class="form-control">
+                                        <input type="number" name="jumlah" value="<?= $data->jumlah; ?>" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -239,5 +239,21 @@
 </body>
 <script src="../../assets/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/js/dataTables.bootstrap.min.js"></script>
+<?php
+    if(isset($_POST['submit'])){
+        $id_buku = $_POST['id'];
+        $judul = $_POST['judul'];
+        $pengarang = $_POST['pengarang'];
+        $penerbit = $_POST['penerbit'];
+        $tahun = $_POST['tahun'];
+        $isbn = $_POST['isbn'];
+        $jumlah = $_POST['jumlah'];
+        $exe = update_buku($id,$judul,$pengarang,$penerbit,$tahun,$isbn,$jumlah);
+        if($exe){ ?>
+        <script type="text/javascript"> window.location = "lihat_buku.php" </script>
+        <?php
+        }
+    }
+?>
 
 </html>
