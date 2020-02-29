@@ -1,7 +1,7 @@
 <?php
     include '../core/init.php';
-    $id = $_GET['id_buku'];
-    $data = detail_buku($id);
+    $id = $_GET['id_peminjaman'];
+    $data = detail_peminjaman($id);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -95,39 +95,39 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="horizontal-form">
                             <form action="" method="POST" class="form-horizontal">
-                            <input type="hidden" id="id_anggota" name="id_anggota">
+                            <input type="hidden" name="id_peminjaman" value="<?= $data->id_peminjaman ?>">
                             <div class="form-group">
                                         <label class="control-label col-sm-2">NIM</label>
                                         <div class="col-sm-10">
-                                        <input type="text" onkeyup="isi_otomatis()" id="nim" class="form-control">
+                                        <input type="text"  value="<?= $data->nim ?>" class="form-control" disabled>
                                         </div>
                                     </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Nama</label>
                                     <div class="col-md-10">
-                                        <input type="text" id="nama" class="form-control" disabled>
+                                    <input type="text"  value="<?= $data->nama ?>" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Prodi</label>
                                     <div class="col-md-10">
-                                        <input type="text" id="prodi" class="form-control" disabled>
+                                    <input type="text"  value="<?= $data->prodi ?>" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Peminjaman</label>
+                                    <label class="control-label col-sm-2">Tanggal Hari Ini</label>
                                     <div class="col-md-10">
                                         <input type="date" id="datenow" name="tglsekarang" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Kembali</label>
+                                    <label class="control-label col-sm-2">TGL Harus Kembali</label>
                                     <div class="col-md-10">
-                                        <input type="date" id="kembali" name="tglkembali" class="form-control">
+                                        <input type="date" value="<?= $data->tgl_pengembalian ?>" name="tglkembali" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Jumlah</label>
+                                    <label class="control-label col-sm-2">Jumlah Buku</label>
                                     <div class="col-md-10">
                                         <input type="text" name="jumlah" class="form-control" >
                                     </div>
@@ -218,10 +218,6 @@
                                 Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
-                        <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
-            Pengembalian</span>
-        <div class="clearfix"></div>
-    </a></li>
                 </ul>
             </div>
         </div>
@@ -269,7 +265,6 @@
 </body>
 <script src="../../assets/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/js/dataTables.bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
     tglsekarang = document.getElementById('datenow').valueAsDate = new Date();
     Date.prototype.addDays = function (days) {
@@ -286,41 +281,26 @@
         result.setDate(result.getDate() + days);
         return result;
     }
-
-    function isi_otomatis() {
-        var nim = $("#nim").val();
-        $.ajax({
-            url: 'proses-ajax.php',
-            data: "nim=" + nim,
-        }).success(function (data) {
-            var json = data,
-                obj = JSON.parse(json);
-            $('#nama').val(obj.nama);
-            $('#prodi').val(obj.prodi);
-            $('#id_anggota').val(obj.id_anggota);
-        });
-    }
 </script>
 <?php
     if (isset($_POST['submit'])) {
-        $id_anggota = $_POST['id_anggota'];
+        $id_peminjaman = $_POST['id_peminjaman'];
         $id_buku = $id;
-        $tglsekarang = $_POST['tglsekarang'];
-        $tglkembali = $_POST['tglkembali'];
+        $tglkembali = $_POST['tglsekarang'];
         $jumlah = $_POST['jumlah'];
-        if(pinjam_buku($id_buku,$jumlah)){
-            if(pinjam($id_buku,$tglsekarang,$tglkembali,$jumlah,$id_anggota)){
+        if(cek_pengembalian($id_peminjaman,$jumlah)){
+            if(pengembalian($id_peminjaman,$tglkembali,$jumlah)){
                 ?>
-                <script>alert("Berhasil Pinjam Buku") </script>
+                <script>alert("Berhasil Mengembalikan Buku") </script>
                 <script>window.location = "lihat_buku.php" </script>
                 <?php
             }else{
-
+                echo "salah";
             }
         }else{
             ?>
-            <script>alert("Gagal Meminjam Buku") </script>
-            <script>window.location = "lihat_buku.php" </script>
+            <script>alert("Jumlah Buku Tidak Sesuai") </script>
+            <script>window.location = "lihat_peminjaman.php" </script>
             <?php
         }
 

@@ -80,7 +80,7 @@
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
                                     <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                    <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                    <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
                         </ul>
@@ -93,10 +93,10 @@
                     <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
                 </ol>
                 <a type="button" class="btn btn-primary"  href="tambah_buku.php"> Tambah Buku </a>
-                <table border="1px" class="table table-bordered breadcrumb"  id="anggota" >
+                <table border="1px solid" class="table table-bordered breadcrumb"  id="anggota" >
                     <thead>
                         <tr>
-                            <<th>Judul</th>
+                            <th>Judul</th>
             <th>Pengarang</th>
             <th>Penerbit</th>
             <th>Tahun</th>
@@ -168,7 +168,7 @@
                                 class="fa fa-users nav_icon"></i><span>Anggota</span>
                             <div class="clearfix"></div>
                         </a></li>
-                    <li><a href="buku/lihat_buku.php"><i class="fa fa-book" aria-hidden="true"></i><span>Lihat
+                    <li><a href="lihat_buku.php"><i class="fa fa-book" aria-hidden="true"></i><span>Lihat
                                 Buku</span>
                             <div class="clearfix"></div>
                         </a></li>
@@ -176,6 +176,10 @@
                                 class="fa fa-exchange"></i><span>Lihat Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
+                        <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+            Pengembalian</span>
+        <div class="clearfix"></div>
+    </a></li>
                 </ul>
             </div>
         </div>

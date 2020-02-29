@@ -118,10 +118,85 @@ function pinjam($id_buku,$tglsekarang,$tglkembali,$jumlah,$id_anggota){
     $tglsekarang = mysqli_real_escape_string($koneksi,$tglsekarang);
 	$tglkembali = mysqli_real_escape_string($koneksi,$tglkembali);
 	$jumlah = mysqli_real_escape_string($koneksi,$jumlah);
-	$query = "INSERT INTO tbl_peminjaman (id_buku,tgl_peminjaman,tgl_pengembalian,jumlah,id_user) VALUES ('$id_buku','$tglsekarang','$tglkembali','$jumlah','$id_anggota') ";
+	$query = "INSERT INTO tbl_peminjaman (id_buku,tgl_peminjaman,tgl_pengembalian,jumlah,status,id_user) VALUES ('$id_buku','$tglsekarang','$tglkembali','$jumlah','belum kembali','$id_anggota') ";
 	if(mysqli_query($koneksi, $query)){
 		return true;
 	} else {
 		return false;
 	}
+}
+function detail_peminjaman($id)
+{
+	global $koneksi;
+	$query = mysqli_query($koneksi,"SELECT * FROM tbl_peminjaman INNER JOIN tbl_buku ON tbl_peminjaman.id_buku = tbl_buku.id_buku INNER JOIN tbl_anggota ON tbl_peminjaman.id_user = tbl_anggota.id_anggota WHERE id_peminjaman = '$id'  " );
+	$data = mysqli_fetch_object($query);
+	return $data;
+}
+function cek_pengembalian($id_peminjaman,$jumlah){
+	global $koneksi;
+	$id_peminjaman = mysqli_real_escape_string($koneksi, $id_peminjaman);
+	$jumlah= mysqli_real_escape_string($koneksi, $jumlah);
+	$cek = mysqli_query($koneksi,"SELECT * FROM tbl_peminjaman WHERE id_peminjaman = '$id_peminjaman'");
+	$data = mysqli_fetch_object($cek);
+
+	if($data->jumlah == $jumlah){
+		$id_buku = $data->id_buku;
+		$query = "UPDATE tbl_buku SET jumlah = jumlah + $jumlah WHERE id_buku = '$id_buku'";
+		if(mysqli_query($koneksi, $query)){
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+function pengembalian($id_peminjaman,$tglkembali,$jumlah){
+	global $koneksi;
+	$id_peminjaman = mysqli_real_escape_string($koneksi, $id_peminjaman);
+	$tglkembali = mysqli_real_escape_string($koneksi,$tglkembali);
+	$jumlah = mysqli_real_escape_string($koneksi,$jumlah);
+	$query = "INSERT INTO tbl_pengembalian (id_peminjaman,tgl_kembali,jumlah) VALUES ('$id_peminjaman','$tglkembali','$jumlah') ";
+	if(mysqli_query($koneksi, $query)){
+		if(hapus_peminjaman($id_peminjaman)){
+			return true;
+		}else{
+			return false;
+		}
+
+	} else {
+		return false;
+	}
+}
+
+function hapus_peminjaman($id_peminjaman){
+	global $koneksi;
+	$query = "UPDATE tbl_peminjaman SET status = 'kembali' WHERE id_peminjaman = '$id_peminjaman' ";
+	if (mysqli_query($koneksi,$query)) {
+		return true;
+	}else{
+		return false;
+	}
+}
+function terlambat($tgl_dateline,$tgl_kembali){
+
+	$tgl_dateline_pecah = explode("-", $tgl_dateline);
+	$tgl_dateline_pecah = $tgl_dateline_pecah[2]."-".$tgl_dateline_pecah[1]."-".$tgl_dateline_pecah[0];
+
+
+	$tgl_kembali_pecah = explode("-", $tgl_kembali);
+	$tgl_kembali_pecah = $tgl_kembali_pecah[2]."-".$tgl_kembali_pecah[1]."-".$tgl_kembali_pecah[0];
+
+	$selisih = strtotime($tgl_kembali_pecah) - strtotime($tgl_dateline_pecah);
+
+	$selisih = $selisih/86400; //detik dalam 1 hari
+
+	if ($selisih>=1){
+		$hasi_tgl = floor($selisih);
+
+	}else{
+		$hasi_tgl = 0;
+	}
+
+	return $hasi_tgl;
 }

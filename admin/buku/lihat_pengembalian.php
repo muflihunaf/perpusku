@@ -92,40 +92,34 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
                 </ol>
-                <a type="button" class="btn btn-primary" href="tambah_buku.php"> Tambah Buku </a>
                 <table border="1px solid" class="table table-bordered breadcrumb" id="anggota">
                     <thead>
                         <tr>
                             <th>Judul</th>
                             <th>ISBN</th>
-                            <th>Penerbit</th>
-                            <th>Tanggal Peminjaman</th>
-                            <th>Tanggal Pengembalian</th>
+                            <th>Tanggal Harus Dikembalikan</th>
+                            <th>Tanggal Kembali</th>
                             <th>Nama Peminjam</th>
                             <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Jumlah</th>
-                            <th>Option</th>
+                            <th>Denda</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                $query = mysqli_query($koneksi, "SELECT * FROM tbl_buku INNER JOIN tbl_peminjaman ON tbl_buku.id_buku = tbl_peminjaman.id_buku INNER JOIN tbl_anggota ON tbl_anggota.id_anggota = tbl_peminjaman.id_user WHERE tbl_peminjaman.status = 'belum kembali' ");
-                while ($data = mysqli_fetch_object($query)) {?>
+                $query = mysqli_query($koneksi, "SELECT * FROM tbl_pengembalian INNER JOIN tbl_peminjaman ON tbl_pengembalian.id_peminjaman = tbl_peminjaman.id_peminjaman INNER JOIN tbl_buku ON tbl_peminjaman.id_buku = tbl_buku.id_buku INNER JOIN tbl_anggota ON tbl_anggota.id_anggota = tbl_peminjaman.id_user WHERE tbl_peminjaman.status = 'kembali' ORDER BY id_pengembalian DESC");
+                while ($data = mysqli_fetch_object($query)) {
+                    $tgl = terlambat($data->tgl_pengembalian,$data->tgl_kembali);
+                    ?>
+
                         <tr>
                         <td><?= $data->judul ?></td>
                 <td><?= $data->isbn ?></td>
-                <td><?= $data->penerbit ?></td>
-                <td><?= $data->tgl_peminjaman ?></td>
                 <td><?= $data->tgl_pengembalian ?></td>
+                <td><?= $data->tgl_kembali ?></td>
                 <td><?= $data->nama ?></td>
                 <td><?= $data->nim ?></td>
-                <td><?= $data->nama ?></td>
-                <td><?= $data->jumlah ?></td>
-                <td><a href="kembali.php?id_peminjaman=<?= $data->id_peminjaman ?>" class="btn btn-primary bg-primary">Kembalikan</a></td>
-
-
+                <td>Rp.<?= $tgl * 500 ?></td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -178,10 +172,10 @@
                         Peminjaman</span>
                     <div class="clearfix"></div>
                 </a></li>
-                <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
-            Pengembalian</span>
-        <div class="clearfix"></div>
-    </a></li>
+            <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+                        Pengembalian</span>
+                    <div class="clearfix"></div>
+                </a></li>
         </ul>
     </div>
 </div>
