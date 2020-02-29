@@ -9,7 +9,7 @@
     alert("Anda Harus Login Terlebih Dahulu")
 </script>
 <script>
-    window.location = "../../user/login.php"
+    window.location = "../user/login.php"
 </script>
 <?php
         }else{?>
@@ -73,8 +73,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
-                                    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                    <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                    <li> <a href="../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
                         </ul>
@@ -224,6 +223,10 @@
                     <li id="menu-academico"><a href="buku/lihat_peminjaman.php"><i class="fa fa-exchange"></i><span>Lihat Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
+                        <li id="menu-academico"><a href="buku/lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+                        Pengembalian</span>
+                    <div class="clearfix"></div>
+                </a></li>
                 </ul>
             </div>
         </div>

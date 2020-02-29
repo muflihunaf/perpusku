@@ -75,7 +75,7 @@
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
                                     <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                    <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                    <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
                         </ul>
@@ -101,7 +101,9 @@ if(isset($_POST['submit'])){
 
 	if(anggota_kembar($nim)){
 		if(daftar_anggota($nim,$nama,$jk,$tl,$tgl,$prodi,$status)){
-			echo "Berhasil daftar";
+            ?>
+            <script> window.location = "lihat_anggota.php" </script>
+            <?php
 		} else {
 			echo "Gagal daftar";
 		}
@@ -210,6 +212,10 @@ if(isset($_POST['submit'])){
                                 Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
+                        <li id="menu-academico"><a href="../buku/lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+                        Pengembalian</span>
+                    <div class="clearfix"></div>
+                </a></li>
                 </ul>
             </div>
         </div>

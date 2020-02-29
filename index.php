@@ -70,7 +70,7 @@
                   <li> <a href="admin/buku/lihat_buku.php">Lihat Buku</a></li>
                   <li> <a href="admin/buku/lihat_buku.php">Tambah Buku</a></li>
                   <?php }else{ ?>
-                    <li> <a href="">Lihat Buku</a></li>
+                    <li> <a href="user/buku/lihat_buku.php">Lihat Buku</a></li>
               <?php }
               ?>
               <li> <a href="user/logout.php">Logout</a></li>

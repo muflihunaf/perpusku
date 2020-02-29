@@ -75,7 +75,7 @@
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
                                     <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                    <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                    <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
                         </ul>
@@ -113,7 +113,7 @@
                             <td><?= $data->tgl_lahir ?></td>
                             <td><?= $data->prodi ?></td>
                             <td><a class="btn btn-primary" href="edit_anggota.php?id_anggota=<?=$data->id_anggota ?>">Edit</a>
-                            <a class="bg-danger btn btn-primary" href="hapus_anggota.php?id_buku=<?=$data->id_anggota ?>">Hapus</a> </td>
+                            <a class="bg-danger btn btn-primary" href="hapus_anggota.php?id_anggota=<?=$data->id_anggota ?>">Hapus</a> </td>
 
                         </tr>
                         <?php } ?>
@@ -164,6 +164,10 @@
                                 class="fa fa-exchange"></i><span>Lihat Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
+                        <li id="menu-academico"><a href="../buku/lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+                        Pengembalian</span>
+                    <div class="clearfix"></div>
+                </a></li>
                 </ul>
             </div>
         </div>
