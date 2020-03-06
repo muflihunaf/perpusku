@@ -1,12 +1,10 @@
-<?php
-    include '../core/init.php';
-    $id = $_GET['id_buku'];
-    $data = detail_buku($id);
-?>
 <!DOCTYPE HTML>
 <html>
 <?php
+        include '../core/init.php';
         session_start();
+        $id = $_GET['id_anggota'];
+        $data = detail_anggota($id);
         if (empty($_SESSION['username'])){
             ?>
 <script>
@@ -91,79 +89,43 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
                 </ol>
+
+
                 <div class="grid-form">
                     <div class="tab-content">
                         <div class="tab-pane active" id="horizontal-form">
                             <form action="" method="POST" class="form-horizontal">
-                            <input type="hidden" id="id_anggota" name="id_anggota">
-                            <div class="form-group">
-                                        <label class="control-label col-sm-2">NIM</label>
-                                        <div class="col-sm-10">
-                                        <input type="text" onkeyup="isi_otomatis()" id="nim" class="form-control">
-                                        </div>
-                                    </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Nama</label>
                                     <div class="col-md-10">
-                                        <input type="text" id="nama" class="form-control" disabled>
+                                        <input type="text" name="nama" class="form-control" value="<?= $data->nama; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Prodi</label>
-                                    <div class="col-md-10">
-                                        <input type="text" id="prodi" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Peminjaman</label>
-                                    <div class="col-md-10">
-                                        <input type="date" id="datenow" name="tglsekarang" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Kembali</label>
-                                    <div class="col-md-10">
-                                        <input type="date" id="kembali" name="tglkembali" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Jumlah</label>
-                                    <div class="col-md-10">
-                                        <input type="text" name="jumlah" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Judul</label>
-                                    <div class="col-md-10">
-                                        <input type="text" name="judul" value="<?= $data->judul; ?>" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="" class="control-label col-sm-2">Pengarang</label>
+                                <label for="" class="control-label col-sm-2">Jenis Kelamin</label>
                                 <div class="col-md-10">
-                                <input type="text" name="pengarang" value="<?= $data->pengarang; ?>" class="form-control" disabled>
+                                <input type="text" class="form-control" name="jk" value="<?= $data->jenis_kelamin; ?>">
                                 </div>
                                 </div>
                                 <div class="form-group">
-                                <label class="control-label col-sm-2">Penerbit</label>
+                                <label class="control-label col-sm-2">Tempat Lahir</label>
                                 <div class="col-md-10">
-                                <input type="text" name="penerbit" value="<?= $data->penerbit; ?>" class="form-control" disabled>
+                                    <input type="text" class="form-control" name="tempat_lahir" value="<?= $data->tempat_lahir; ?>">
                                 </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2">Tahun</label>
+                                    <label class="control-label col-sm-2">Tanggal Lahir</label>
                                     <div class="col-sm-10">
-                                    <input class="form-control" type="number" name="tahun" value="<?= $data->tahun; ?>" disabled>
+                                    <input class="form-control" type="date" name="tgl_lahir" value="<?= $data->tgl_lahir; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label class="control-label col-sm-2">ISBN</label>
+                                <label class="control-label col-sm-2">Prodi</label>
                                 <div class="col-sm-10">
-                                <input class="form-control" type="number" name="isbn" value="<?= $data->isbn; ?>" disabled>
+                                    <input type="text" name="prodi" value="<?= $data->prodi; ?>" class="form-control">
                                 </div>
                                 </div>
-
                                     <div class="form-group">
                                         <input type="submit" name="submit" value="Simpan" class="col-md-2 col-md-offset-10 bg-primary btn btn-primary">
                                     </div>
@@ -172,7 +134,9 @@
                     </div>
                 </div>
 
-                <?php } ?>
+                <?php
+}
+?>
 
                 <script>
                     $(document).ready(function () {
@@ -218,10 +182,10 @@
                                 Peminjaman</span>
                             <div class="clearfix"></div>
                         </a></li>
-                        <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
-            Pengembalian</span>
-        <div class="clearfix"></div>
-    </a></li>
+                        <li id="menu-academico"><a href="../buku/lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
+                        Pengembalian</span>
+                    <div class="clearfix"></div>
+                </a></li>
                 </ul>
             </div>
         </div>
@@ -269,61 +233,19 @@
 </body>
 <script src="../../assets/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/js/dataTables.bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript">
-    tglsekarang = document.getElementById('datenow').valueAsDate = new Date();
-    Date.prototype.addDays = function (days) {
-        var date = new Date(this.valueOf());
-        date.setDate(date.getDate() + days);
-        return date;
-    }
-
-    var date = new Date();
-    tglsekarang = document.getElementById('kembali').valueAsDate = date.addDays(3);
-
-    function addDays(date, days) {
-        var result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-
-    function isi_otomatis() {
-        var nim = $("#nim").val();
-        $.ajax({
-            url: 'proses-ajax.php',
-            data: "nim=" + nim,
-        }).success(function (data) {
-            var json = data,
-                obj = JSON.parse(json);
-            $('#nama').val(obj.nama);
-            $('#prodi').val(obj.prodi);
-            $('#id_anggota').val(obj.id_anggota);
-        });
-    }
-</script>
 <?php
-    if (isset($_POST['submit'])) {
-        $id_anggota = $_POST['id_anggota'];
-        $id_buku = $id;
-        $tglsekarang = $_POST['tglsekarang'];
-        $tglkembali = $_POST['tglkembali'];
-        $jumlah = $_POST['jumlah'];
-        if(pinjam_buku($id_buku,$jumlah)){
-            if(pinjam($id_buku,$tglsekarang,$tglkembali,$jumlah,$id_anggota)){
-                ?>
-                <script>alert("Berhasil Pinjam Buku") </script>
-                <script>window.location = "lihat_buku.php" </script>
-                <?php
-            }else{
-
-            }
-        }else{
-            ?>
-            <script>alert("Gagal Meminjam Buku") </script>
-            <script>window.location = "lihat_buku.php" </script>
-            <?php
+    if(isset($_POST['submit'])){
+        $id_anggota = $id;
+        $nama = $_POST['nama'];
+        $jk = $_POST['jk'];
+        $tempat_lahir = $_POST['tempat_lahir'];
+        $tgl = $_POST['tgl_lahir'];
+        $prodi = $_POST['prodi'];
+        $exe = update_anggota($id,$nama,$jk,$tempat_lahir,$tgl,$prodi);
+        if($exe){ ?>
+        <script type="text/javascript"> window.location = "lihat_anggota.php" </script>
+        <?php
         }
-
     }
 ?>
 

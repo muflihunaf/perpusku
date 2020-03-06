@@ -15,7 +15,24 @@ function simpan_buku($judul,$pengarang,$penerbit,$tahun,$isbn,$lokasi,$jumlah){
 		return false;
 	}
 }
+function hapus_anggota($id){
+	global $koneksi;
+	$id = mysqli_real_escape_string($koneksi, $id);
+	$query = "DELETE FROM tbl_anggota WHERE id_anggota = '$id'";
 
+	if(mysqli_query($koneksi, $query)){
+		return true;
+	} else {
+		return false;
+	}
+}
+function detail_anggota($id)
+{
+	global $koneksi;
+	$query = mysqli_query($koneksi,"SELECT * FROM tbl_anggota WHERE id_anggota = '$id' ");
+	$data = mysqli_fetch_object($query);
+	return $data;
+}
 function detail_buku($id)
 {
 	global $koneksi;
@@ -45,6 +62,23 @@ function update_buku($id,$judul,$pengarang,$penerbit,$tahun,$isbn,$jumlah){
     $isbn		= mysqli_real_escape_string($koneksi, $isbn);
 
 	$query = "UPDATE tbl_buku SET judul = '$judul', pengarang = '$pengarang', penerbit = '$penerbit', tahun = '$tahun', isbn = '$isbn', jumlah = '$jumlah' WHERE id_buku = '$id'";
+	if(mysqli_query($koneksi, $query)){
+		return true;
+	} else {
+		return false;
+
+	}
+}
+function update_anggota($id,$nama,$jk,$tempat_lahir,$tgl,$prodi){
+	global $koneksi;
+	$id		= mysqli_real_escape_string($koneksi, $id);
+	$nama		= mysqli_real_escape_string($koneksi, $nama);
+    $jk	= mysqli_real_escape_string($koneksi, $jk);
+    $tempat_lahir	= mysqli_real_escape_string($koneksi, $tempat_lahir);
+	$tgl		= mysqli_real_escape_string($koneksi, $tgl);
+    $prodi		= mysqli_real_escape_string($koneksi, $prodi);
+
+	$query = "UPDATE tbl_anggota SET nama = '$nama', jenis_kelamin = '$jk', tempat_lahir = '$tempat_lahir', tgl_lahir = '$tgl', prodi = '$prodi' WHERE id_anggota = '$id'";
 	if(mysqli_query($koneksi, $query)){
 		return true;
 	} else {

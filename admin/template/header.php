@@ -62,7 +62,7 @@
                             <li class="dropdown profile_details_drop">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <div class="profile_img">
-                                        <span class="prfil-img"><img src="../assets/web/images/in4.jpg" alt=""> </span>
+
                                         <div class="user-name">
                                             <p><?= $_SESSION['username'] ?> </p>
                                             <span>Administrator</span>
@@ -73,7 +73,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
-                                    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+
                                     <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
@@ -293,7 +293,7 @@
                             <li class="dropdown profile_details_drop">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <div class="profile_img">
-                                        <span class="prfil-img"><img src="../assets/web/images/in4.jpg" alt=""> </span>
+
                                         <div class="user-name">
                                             <p><?= $_SESSION['username'] ?> </p>
                                             <span>Administrator</span>
@@ -304,7 +304,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
-                                    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+
                                     <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
                                 </ul>
                             </li>
