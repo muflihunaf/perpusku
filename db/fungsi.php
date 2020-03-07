@@ -35,6 +35,17 @@ function hapus_buku($id){
 		return false;
 	}
 }
+function hapus_anggota($id){
+	global $koneksi;
+	$id = mysqli_real_escape_string($koneksi, $id);
+	$query = "DELETE FROM tbl_anggota WHERE id_anggota = '$id'";
+
+	if(mysqli_query($koneksi, $query)){
+		return true;
+	} else {
+		return false;
+	}
+}
 function update_buku($id,$judul,$pengarang,$penerbit,$tahun,$isbn,$jumlah){
 	global $koneksi;
 	$id		= mysqli_real_escape_string($koneksi, $id);
