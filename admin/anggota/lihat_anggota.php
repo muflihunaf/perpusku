@@ -171,7 +171,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="card-box table-responsive">
-                                                <a class="btn btn-primary" href="http://">Tambah User</a>
+                                                <a class="btn btn-primary" href="tambah_anggota.php">Tambah User</a>
                                                 <table id="datatable" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>

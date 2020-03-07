@@ -133,7 +133,7 @@ function pinjam_buku($id_buku,$jumlah){
 	$cek = mysqli_query($koneksi,"SELECT * FROM tbl_buku WHERE id_buku = '$id_buku'");
 	$data = mysqli_fetch_object($cek);
 
-	if($data->jumlah > $jumlah){
+	if($data->jumlah >= $jumlah){
 		$query = "UPDATE tbl_buku SET jumlah = jumlah - $jumlah WHERE id_buku = '$id_buku'";
 		if(mysqli_query($koneksi, $query)){
 			return true;

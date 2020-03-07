@@ -43,6 +43,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../../assets/build/css/custom.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
   </head>
 
   <body class="nav-md">
@@ -63,7 +64,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?= $_SESSION['username'] ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -107,7 +108,7 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
+                      <img src="images/img.jpg" alt=""><?= $_SESSION['username'] ?>
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;"> Profile</a>
@@ -200,12 +201,7 @@
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5  form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -257,6 +253,12 @@
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
                         <div class="col-md-6 col-sm-6 ">
                           <input class="form-control" type="number" name="jumlah" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Sinopsis</label>
+                        <div class="col-md-9 col-sm-9 ">
+                          <textarea name="sinopsis"></textarea>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -323,6 +325,9 @@
     <script src="../../assets/vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../assets/build/js/custom.min.js"></script>
+    <script>
+      CKEDITOR.replace('sinopsis');
+    </script>
 
   </body>
   <?php

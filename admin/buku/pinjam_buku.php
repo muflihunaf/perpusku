@@ -1,11 +1,8 @@
+<!DOCTYPE html>
 <?php
-    include '../core/init.php';
-    $id = $_GET['id_buku'];
-    $data = detail_buku($id);
-?>
-<!DOCTYPE HTML>
-<html>
-<?php
+        include '../core/init.php';
+        $id = $_GET['id_buku'];
+        $data = detail_buku($id);
         session_start();
         if (empty($_SESSION['username'])){
             ?>
@@ -13,264 +10,345 @@
     alert("Anda Harus Login Terlebih Dahulu")
 </script>
 <script>
-    window.location = "../../user/login.php"
+    window.location = "../user/login.php"
 </script>
 <?php
         }else{?>
-
-<head>
-    <title>Admin</title>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- Bootstrap Core CSS -->
-    <link href="../../assets/web/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-    <!-- Custom CSS -->
-    <link href="../../assets/web/css/style.css" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="../../assets/web/css/morris.css" type="text/css" />
-    <!-- Graph CSS -->
-    <link href="../../assets/web/css/font-awesome.css" rel="stylesheet">
-    <!-- jQuery -->
-    <script src="../../assets/web/js/jquery.min.js"></script>
-    <!-- //jQuery -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet'
-        type='text/css' />
-    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <!-- lined-icons -->
-    <link rel="stylesheet" href="../../assets/web/css/icon-font.min.css" type='text/css' />
-    <link rel="stylesheet" href="../../assets/css/dataTables.bootstrap.min.css ">
-    <!-- //lined-icons -->
-</head>
+    <title>Peminjaman Buku </title>
 
-<body>
-    <div class="container-fluid">
-        <!--/content-inner-->
-        <div class="left-content">
-            <div class="mother-grid-inner">
-                <!--header start here-->
-                <div class="header-main">
-                    <div class="logo-w3-agile">
-                        <h1><a href="index.php">Perpusku</a></h1>
-                    </div>
+    <!-- Bootstrap -->
+    <link href="../../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../../assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../../assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="../../assets/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../../assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="../../assets/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="../../assets/vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../../assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Custom Theme Style -->
+    <link href="../../assets/build/css/custom.min.css" rel="stylesheet">
+  </head>
 
-                    <div class="col-md-offset-6 profile_details w3l">
-                        <ul>
-                            <li class="dropdown profile_details_drop">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <div class="profile_img">
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+            </div>
 
-                                        <div class="user-name">
-                                            <p><?= $_SESSION['username'] ?> </p>
-                                            <span>Administrator</span>
-                                        </div>
-                                        <i class="fa fa-angle-down"></i>
-                                        <i class="fa fa-angle-up"></i>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu drp-mnu">
+            <div class="clearfix"></div>
 
-                                    <li> <a href="../../user/logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2><?= $_SESSION['username'] ?></h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
 
-                    <div class="clearfix"> </div>
-                </div>
-                <!--heder end here-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i></li>
-                </ol>
-                <div class="grid-form">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="horizontal-form">
-                            <form action="" method="POST" class="form-horizontal">
-                            <input type="hidden" id="id_anggota" name="id_anggota">
-                            <div class="form-group">
-                                        <label class="control-label col-sm-2">NIM</label>
-                                        <div class="col-sm-10">
-                                        <input type="text" onkeyup="isi_otomatis()" id="nim" class="form-control">
-                                        </div>
-                                    </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Nama</label>
-                                    <div class="col-md-10">
-                                        <input type="text" id="nama" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Prodi</label>
-                                    <div class="col-md-10">
-                                        <input type="text" id="prodi" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Peminjaman</label>
-                                    <div class="col-md-10">
-                                        <input type="date" id="datenow" name="tglsekarang" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tanggal Kembali</label>
-                                    <div class="col-md-10">
-                                        <input type="date" id="kembali" name="tglkembali" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Jumlah</label>
-                                    <div class="col-md-10">
-                                        <input type="text" name="jumlah" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Judul</label>
-                                    <div class="col-md-10">
-                                        <input type="text" name="judul" value="<?= $data->judul; ?>" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="" class="control-label col-sm-2">Pengarang</label>
-                                <div class="col-md-10">
-                                <input type="text" name="pengarang" value="<?= $data->pengarang; ?>" class="form-control" disabled>
-                                </div>
-                                </div>
-                                <div class="form-group">
-                                <label class="control-label col-sm-2">Penerbit</label>
-                                <div class="col-md-10">
-                                <input type="text" name="penerbit" value="<?= $data->penerbit; ?>" class="form-control" disabled>
-                                </div>
-                                </div>
+            <br />
 
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">Tahun</label>
-                                    <div class="col-sm-10">
-                                    <input class="form-control" type="number" name="tahun" value="<?= $data->tahun; ?>" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label class="control-label col-sm-2">ISBN</label>
-                                <div class="col-sm-10">
-                                <input class="form-control" type="number" name="isbn" value="<?= $data->isbn; ?>" disabled>
-                                </div>
-                                </div>
-
-                                    <div class="form-group">
-                                        <input type="submit" name="submit" value="Simpan" class="col-md-2 col-md-offset-10 bg-primary btn btn-primary">
-                                    </div>
-                            </form>
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>Menu</h3>
+                            <ul class="nav side-menu">
+                                <li><a href="../index.php"><i class="fa fa-home"></i> Home </a>
+                                </li>
+                                <li><a href="../anggota/lihat_anggota.php"><i class="fa fa-users"></i> Anggota </a>
+                                </li>
+                                <li><a href="lihat_buku.php"><i class="fa fa-book"></i> Lihat Buku </a></li>
+                                <li><a href="lihat_peminjaman.php"><i class="fa fa-exchange"></i> Lihat Peminjaman</a>
+                                </li>
+                                <li><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i> Lihat Pengembalian</a>
+                                </li>
+                            </ul>
                         </div>
+
+
                     </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
+                <nav class="nav navbar-nav">
+                <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="images/img.jpg" alt=""><?= $_SESSION['username'] ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                        <a class="dropdown-item"  href="javascript:;">
+                          <span class="badge bg-red pull-right">50%</span>
+                          <span>Settings</span>
+                        </a>
+                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    </div>
+                  </li>
 
-                <?php } ?>
-
-                <script>
-                    $(document).ready(function () {
-                        var navoffeset = $(".header-main").offset().top;
-                        $(window).scroll(function () {
-                            var scrollpos = $(window).scrollTop();
-                            if (scrollpos >= navoffeset) {
-                                $(".header-main").addClass("fixed");
-                            } else {
-                                $(".header-main").removeClass("fixed");
-                            }
-                        });
-
-                    });
-                </script>
-                <!-- /script-for sticky-nav -->
-            </div>
-        </div>
-        <!--//content-inner-->
-        <!--/sidebar-menu-->
-        <div class="sidebar-menu">
-            <header class="logo1">
-                <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a>
-            </header>
-            <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-            <div class="menu">
-                <ul id="menu">
-                    <li><a href="../index.php"><i class="fa fa-tachometer"></i> <span>Dashboard</span>
-                            <div class="clearfix"></div>
-                        </a></li>
-
-
-                    <li id="menu-academico"><a href="anggota/lihat_anggota.php"><i
-                                class="fa fa-users nav_icon"></i><span>Anggota</span>
-                            <div class="clearfix"></div>
-                        </a></li>
-                    <li><a href="../buku/lihat_buku.php"><i class="fa fa-book" aria-hidden="true"></i><span>Lihat
-                                Buku</span>
-                            <div class="clearfix"></div>
-                        </a></li>
-                    <li id="menu-academico"><a href="../buku/lihat_peminjaman.php"><i
-                                class="fa fa-exchange"></i><span>Lihat
-                                Peminjaman</span>
-                            <div class="clearfix"></div>
-                        </a></li>
-                        <li id="menu-academico"><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i><span>Lihat
-            Pengembalian</span>
-        <div class="clearfix"></div>
-    </a></li>
+                  <li role="presentation" class="nav-item dropdown open">
+                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-envelope-o"></i>
+                      <span class="badge bg-green">6</span>
+                    </a>
+                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                      <li class="nav-item">
+                        <a class="dropdown-item">
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
+                          </span>
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="dropdown-item">
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
+                          </span>
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="dropdown-item">
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
+                          </span>
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="dropdown-item">
+                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                          <span>
+                            <span>John Smith</span>
+                            <span class="time">3 mins ago</span>
+                          </span>
+                          <span class="message">
+                            Film festivals used to be do-or-die moments for movie makers. They were where...
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <div class="text-center">
+                          <a class="dropdown-item">
+                            <strong>See All Alerts</strong>
+                            <i class="fa fa-angle-right"></i>
+                          </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
                 </ul>
+              </nav>
             </div>
+          </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Peminjaman Buku</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Lihat Peminjaman</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST">
+
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">NIM<span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" name="nim" onkeyup="isi_otomatis()" id="nim" required="required" class="form-control ">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nama
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" name="nama" disabled id="nama" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Prodi
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" name="prodi" disabled id="prodi" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Peminjaman</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="date" id="datenow" name="tglsekarang" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Kembali</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="date" id="kembali" name="tglkembali" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="number" name="jumlah" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Judul</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="judul" disabled value="<?= $data->judul; ?>">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Pengarang</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="pengarang" disabled value="<?= $data->pengarang; ?>">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tahun</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="penerbit" disabled value="<?= $data->tahun; ?>">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">ISBN</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="penerbit" disabled value="<?= $data->isbn; ?>">
+                        </div>
+                      </div>
+                      <input type="hidden" id="id_anggota" name="id_anggota">
+                      <div class="ln_solid"></div>
+                      <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                          <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
         </div>
-        <div class="clearfix"></div>
+        <!-- /page content -->
 
-
-        <script>
-            var toggle = true;
-
-            $(".sidebar-icon").click(function () {
-                if (toggle) {
-                    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-                    $("#menu span").css({
-                        "position": "absolute"
-                    });
-                } else {
-                    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-                    setTimeout(function () {
-                        $("#menu span").css({
-                            "position": "relative"
-                        });
-                    }, 400);
-                }
-
-                toggle = !toggle;
-            });
-        </script>
-        <!--js -->
-        <script src="../../assets/web/js/jquery.nicescroll.js"></script>
-        <script src="../../assets/web/js/scripts.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../../assets/web/js/bootstrap.min.js"></script>
-        <!-- /Bootstrap Core JavaScript -->
-        <!-- morris JavaScript -->
-        <script src="../../assets/web/js/raphael-min.js"></script>
-        <script src="../../assets/web/js/morris.js"></script>
-
-        <div class="clearfix"> </div><br><br><br><br><br><br><br>
-        <footer class="copyrights">
-            <p>© 2016 Pooled. All Rights Reserved | Design by <a href="http://w3layouts.com/"
-                    target="_blank">W3layouts</a>
-            </p>
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
         </footer>
+        <!-- /footer content -->
+      </div>
     </div>
-</body>
-<script src="../../assets/js/jquery.dataTables.min.js"></script>
-<script src="../../assets/js/dataTables.bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript">
+
+    <!-- jQuery -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+   <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../assets/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../../assets/vendors/nprogress/nprogress.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../../assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../assets/vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../../assets/vendors/moment/min/moment.min.js"></script>
+    <script src="../../assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="../../assets/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="../../assets/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+    <script src="../../assets/vendors/google-code-prettify/src/prettify.js"></script>
+    <!-- jQuery Tags Input -->
+    <script src="../../assets/vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+    <!-- Switchery -->
+    <script src="../../assets/vendors/switchery/dist/switchery.min.js"></script>
+    <!-- Select2 -->
+    <script src="../../assets/vendors/select2/dist/js/select2.full.min.js"></script>
+    <!-- Parsley -->
+    <script src="../../assets/vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- Autosize -->
+    <script src="../../assets/vendors/autosize/dist/autosize.min.js"></script>
+    <!-- jQuery autocomplete -->
+    <script src="../../assets/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <!-- starrr -->
+    <script src="../../assets/vendors/starrr/dist/starrr.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../../assets/build/js/custom.min.js"></script>
+
+  </body>
+  <script type="text/javascript">
     tglsekarang = document.getElementById('datenow').valueAsDate = new Date();
     Date.prototype.addDays = function (days) {
         var date = new Date(this.valueOf());
@@ -323,8 +401,7 @@
             <script>window.location = "lihat_buku.php" </script>
             <?php
         }
-
+    }
     }
 ?>
-
 </html>
