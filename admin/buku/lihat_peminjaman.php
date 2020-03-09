@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>Home </title>
+    <title>Lihat Peminjaman </title>
 
     <!-- Bootstrap -->
     <link href="../../assets/css/jquery.dataTables.min.css">
@@ -172,8 +172,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="card-box table-responsive">
-                                                <table border="1px solid" class="table table-striped table-bordered"
-                                                    id="datatable" style="width:100%">
+                                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
                                                             <th>Judul</th>
@@ -263,9 +262,8 @@
     <script src="../../assets/vendors/jszip/dist/jszip.min.js"></script>
     <script src="../../assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../../assets/vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="../../assets/build/js/custom.min.js"></script>
-    <script>
-    </script>
+    <script src="../../assets/build/js/custom.js"></script>
+
 
 </body>
 <?php } ?>

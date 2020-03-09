@@ -2,6 +2,7 @@
 <?php
         include '../core/init.php';
         session_start();
+        $id = $_GET['id_user'];
         if (empty($_SESSION['username'])){
             ?>
 <script>
@@ -132,7 +133,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Tambah Anggota</h3>
+                <h3>Ganti Password</h3>
               </div>
 
               <div class="title_right">
@@ -146,7 +147,7 @@
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Tambah Anggota</h2>
+                    <h2>Ganti Password</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -154,43 +155,26 @@
                     <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST">
 
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">NIM<span class="required"></span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Password Lama<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="number" name="nim" required="required" class="form-control ">
+                          <input type="password" name="password_lama" required="required" class="form-control ">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nama
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password Baru
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" name="nama" required="required" class="form-control">
+                          <input type="password" name="password_baru" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Jenis Kelamin</label>
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Konfirmasi Password</label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="text" name="jenis_kelamin" required>
+                          <input class="form-control" type="password" name="konfirmasi" required>
                         </div>
                       </div>
-                      <div class="item form-group">
-                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tempat Lahir</label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="text" name="tempat_lahir" required>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Lahir</label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="date" name="tanggal_lahir" required>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Program Studi</label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="text" name="prodi" required>
-                        </div>
-                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
@@ -258,26 +242,33 @@
 
   </body>
   <?php
-        if(isset($_POST['submit'])){
-            $nim 	= $_POST['nim'];
-            $nama 	= $_POST['nama'];
-            $jk 	= $_POST['jenis_kelamin'];
-            $tl 	= $_POST['tempat_lahir'];
-            $tgl = $_POST['tanggal_lahir'];
-            $prodi 	= $_POST['prodi'];
-            $status = 0;
-
-            if(anggota_kembar($nim)){
-                if(daftar_anggota($nim,$nama,$jk,$tl,$tgl,$prodi,$status)){
-                    ?>
-                    <script> alert("Berhasil Menambah Anggota") </script>
-                    <script> window.location = "lihat_anggota.php" </script>
+    if(isset($_POST['submit'])){
+        $id_user = $id;
+        $pl = $_POST['password_lama'];
+        $pb = $_POST['password_baru'];
+        $konfirmasi = $_POST['konfirmasi'];
+        $sql = $koneksi->query("SELECT * FROM tbl_user WHERE id_user = '$id'");
+        $data = $sql->fetch_assoc();
+        if (password_verify(($pl),$data['password'])) {
+            if ($pb == $konfirmasi) {
+                $password = password_hash($pb, PASSWORD_DEFAULT);
+                $query = $koneksi->query("UPDATE tbl_user SET password = '$password' WHERE id_user ='$id' ");
+                if ($query) { ?>
+                    <script> window.alert("Berhasil Ubah Password")</script>
+                    <script> window.location("../index.php") </script>
                     <?php
-                } else {
-                    echo "Gagal daftar";
                 }
+            }else { ?>
+                <script> alert("Password Tidak Sama") </script>
+                <?php
             }
-      }
+        }else{
+            ?>
+            <script>alert("Password Lama Salah")</script>
+            <?php
+        }
     }
-    ?>
+}
+?>
+
 </html>

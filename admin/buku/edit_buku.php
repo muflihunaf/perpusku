@@ -10,7 +10,7 @@
     alert("Anda Harus Login Terlebih Dahulu")
 </script>
 <script>
-    window.location = "../user/login.php"
+    window.location = "../../user/login.php"
 </script>
 <?php
         }else{?>
@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Edit Buku </title>
+    <title>Edit  Buku </title>
 
     <!-- Bootstrap -->
     <link href="../../assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,6 +45,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../../assets/build/css/custom.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
   </head>
 
   <body class="nav-md">
@@ -53,7 +54,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Perpustakaan</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Perpustakaanku</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -216,44 +217,62 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST">
+                    <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
 
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Judul Buku<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" name="judul" required="required" class="form-control " value="<?= $data->judul; ?>">
+                        <input type="text" name="judul" required="required" class="form-control " value="<?= $data->judul; ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pengarang
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" name="pengarang" required="required" class="form-control" value="<?= $data->pengarang; ?>">
+                        <input type="text" name="pengarang" required="required" class="form-control" value="<?= $data->pengarang; ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Penerbit</label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="text" name="penerbit" required value="<?= $data->penerbit; ?>">
+                        <input class="form-control" type="text" name="penerbit" required value="<?= $data->penerbit; ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Tahun</label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="number" name="tahun" required value="<?= $data->tahun; ?>">
+                        <input class="form-control" type="number" name="tahun" required value="<?= $data->tahun; ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">ISBN</label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="number" name="isbn" required value="<?= $data->isbn; ?>">
+                        <input class="form-control" type="number" name="isbn" required value="<?= $data->isbn; ?>">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">lokasi</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="lokasi" required value="<?= $data->lokasi ?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input class="form-control" type="number" name="jumlah" required value="<?= $data->jumlah; ?>">
+                        <input class="form-control" type="number" name="jumlah" required value="<?= $data->jumlah; ?>">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Cover Buku</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="file" name="gambar" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Sinopsis</label>
+                        <div class="col-md-9 col-sm-9 ">
+                          <textarea name="sinopsis"> <?= $data->sinopsis; ?> </textarea>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -320,23 +339,35 @@
     <script src="../../assets/vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../assets/build/js/custom.min.js"></script>
+    <script>
+      CKEDITOR.replace('sinopsis');
+    </script>
 
   </body>
   <?php
-    if(isset($_POST['submit'])){
-        $id_buku = $_POST['id'];
-        $judul = $_POST['judul'];
-        $pengarang = $_POST['pengarang'];
-        $penerbit = $_POST['penerbit'];
-        $tahun = $_POST['tahun'];
-        $isbn = $_POST['isbn'];
-        $jumlah = $_POST['jumlah'];
-        $exe = update_buku($id,$judul,$pengarang,$penerbit,$tahun,$isbn,$jumlah);
+        if(isset($_POST['submit'])){
+            $judul = $_POST['judul'];
+            $pengarang = $_POST['pengarang'];
+            $penerbit = $_POST['penerbit'];
+            $tahun = $_POST['tahun'];
+            $isbn = $_POST['isbn'];
+            $lokasi = $_POST['lokasi'];
+            $jumlah = $_POST['jumlah'];
+            $gambar = $_POST['jumlah'];
+            $sinopsis = $_POST['sinopsis'];
+            $tmp = $_FILES['gambar']['tmp_name'];
+            $gambar = $_FILES['gambar']['name'];
+            $nama = date('Y-m-d') . $gambar;
+            $folder = "../../assets/file/";
+          if (move_uploaded_file($tmp, $folder . $gambar )) {
+
+            $exe = update_buku($id,$judul,$sinopsis,$gambar,$pengarang,$penerbit,$tahun,$isbn,$jumlah);
         if($exe){ ?>
         <script type="text/javascript"> window.location = "lihat_buku.php" </script>
         <?php
         }
-    }
+        }
       }
+    }
     ?>
 </html>

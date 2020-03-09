@@ -52,7 +52,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Perpustakaanku</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -215,7 +215,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST">
+                    <form id="demo-form2" action="" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
 
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Judul Buku<span class="required"></span>
@@ -250,9 +250,21 @@
                         </div>
                       </div>
                       <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">lokasi</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="text" name="lokasi" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
                         <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Jumlah</label>
                         <div class="col-md-6 col-sm-6 ">
                           <input class="form-control" type="number" name="jumlah" required>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Cover Buku</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input class="form-control" type="file" name="gambar" required>
                         </div>
                       </div>
                       <div class="item form-group">
@@ -339,7 +351,14 @@
             $isbn = $_POST['isbn'];
             $lokasi = $_POST['lokasi'];
             $jumlah = $_POST['jumlah'];
-            if(simpan_buku($judul,$pengarang,$penerbit,$tahun,$isbn,$lokasi,$jumlah)){
+            $gambar = $_POST['jumlah'];
+            $sinopsis = $_POST['sinopsis'];
+            $tmp = $_FILES['gambar']['tmp_name'];
+            $gambar = $_FILES['gambar']['name'];
+            $folder = "../../assets/file/";
+          if (move_uploaded_file($tmp, $folder . $gambar )) {
+
+            if(simpan_buku($judul,$sinopsis,$gambar,$pengarang,$penerbit,$tahun,$isbn,$lokasi,$jumlah)){
                 ?>
                 <script>alert("Berhasil")</script>
                 <script>window.location = "lihat_buku.php"</script>
@@ -349,5 +368,6 @@
             }
         }
       }
+    }
     ?>
 </html>
