@@ -50,6 +50,7 @@
           <li class="active"><a href="#header">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact Us</a></li>
+          <li><a href="user/buku/buku.php">Lihat Buku</a></li>
           <li class="drop-down"><a href="">User</a>
             <ul>
               <?php
@@ -67,7 +68,8 @@
                   <li> <a href="admin/buku/lihat_buku.php">Lihat Buku</a></li>
                   <li> <a href="admin/buku/lihat_buku.php">Tambah Buku</a></li>
                   <?php }else{ ?>
-                    <li> <a href="user/buku/lihat_buku.php">Lihat Buku</a></li>
+                    <li><a href="user/buku/buku.php">Lihat Buku</a></li>
+
               <?php }
               ?>
               <li> <a href="user/logout.php">Logout</a></li>
