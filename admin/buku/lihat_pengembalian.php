@@ -85,6 +85,12 @@
                                 <li><a href="lihat_pengembalian.php"><i class="fa fa-exchange"></i> Lihat
                                         Pengembalian</a>
                                 </li>
+                                <?php
+                                    $data = $koneksi->query("SELECT id_user FROM tbl_user WHERE username = '$_SESSION[username]'");
+                                    $l = $data->fetch_object();
+                                ?>
+                                <li><a href="anggota/ganti_password.php?id_user=<?= $l->id_user ?>"><i class="fa fa-lock"></i> Ganti Password </a>
+                                </li>
                             </ul>
                         </div>
 
